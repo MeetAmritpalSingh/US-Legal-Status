@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 //Setup a new app
 const app = new express()
 
+const port = process.env.PORT || 3000;
 //Important file paths defined
 const publicDirectoryPath = path.join(__dirname,'../public')
 const viewsDirectoryPath = path.join(__dirname,'../templates/views')
@@ -48,8 +49,8 @@ app.post('/submit', async (req, res) => {
   
 
 
-app.listen(3000,()=>{
-    console.log('Server started correctly');
+app.listen(port,()=>{
+    console.log('Server started correctly at '+port);
 })
 
 // executeGetLegalInfo(number, numberType, (data)=>{

@@ -1,0 +1,29 @@
+console.log("Client side javascript loaded");
+
+const inputPatentList = document.getElementById('patentList')
+const button = document.getElementById('submit')
+const parsedPatentList = document.getElementById('parsedList')
+
+button.addEventListener('click',(event)=>{
+    event.preventDefault();
+    const patentNumbers = inputPatentList.value.split('\n').filter((patent)=>{
+        return patent.length > 1
+    })
+
+    for(i=0;i<patentNumbers.length;i++){
+        if(patentNumbers[i].length === 9 || patentNumbers[i].length === 10){
+            patentNumbers[i]=patentNumbers[i].replace("US","")+"@Granted"
+        } else if(patentNumbers[i].length === 13 ){
+            patentNumbers[i]=patentNumbers[i].replace("US","")+"@application"
+        } else if(patentNumbers[i].length === 12 ) {
+            patentNumbers[i]=patentNumbers[i].replace("US","").substring(0,4)+"0"+patentNumbers[i].replace("US","").substring(4,12)+"@application"
+        }
+
+        
+    }
+
+    const patentNumbersWithType = patentNumbers.map(patent => patent.split("@"))
+
+    parsedPatentList.value = JSON.stringify(patentNumbersWithType)
+    console.log(parsedPatentList.value);
+})
